@@ -1,24 +1,15 @@
-console.log('Try npm run lint/fix!');
+import * as dotenv from 'dotenv';
+import * as express from 'express';
+import {createRandomUser} from './services/user.service';
 
-const longString =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut aliquet diam.';
+dotenv.config();
 
-const trailing = 'Semicolon';
+const app = express();
 
-const why = 'am I tabbed?';
+app.get('/', (req, res) => {
+  res.send(createRandomUser());
+});
 
-export function doSomeStuff(
-  withThis: string,
-  andThat: string,
-  andThose: string[]
-) {
-  //function on one line
-  if (!andThose.length) {
-    return false;
-  }
-  console.log(withThis);
-  console.log(andThat);
-  console.dir(andThose);
-  return;
-}
-// TODO: more examples
+app.listen(process.env.PORT, () => {
+  console.log(`User service listening on PORT ${process.env.PORT}`);
+});
